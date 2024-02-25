@@ -1,0 +1,67 @@
+---
+import HeaderLink from "./HeaderLink.astro";
+import { SITE_TITLE } from "../consts";
+import {
+  getLangFromUrl,
+  useTranslations,
+  useTranslatedPath,
+} from "../i18n/utils";
+import LanguagePicker from "./LanguagePicker.astro";
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const translatePath = useTranslatedPath(lang);
+---
+
+<header>
+  <nav>
+    <h2 class="header__logo"><a href="/">{SITE_TITLE}</a></h2>
+    <div class="header__internal-links">
+      <HeaderLink href={translatePath("/")}>{t("nav.blog")}</HeaderLink>
+      <HeaderLink href={translatePath("/learn/")}>{t("nav.learn")}</HeaderLink>
+      <HeaderLink href={translatePath("/about/")}>{t("nav.about")}</HeaderLink>
+    </div>
+    <LanguagePicker />
+  </nav>
+</header>
+<style>
+  header {
+    margin: 0;
+    padding: 0 1em;
+    background: white;
+    box-shadow: 0 2px 8px rgba(var(--black), 5%);
+  }
+
+  .header__internal-links {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+  }
+
+  .header__logo {
+    margin: 0;
+    font-size: 1em;
+
+    a,
+    a.active {
+      text-decoration: none;
+    }
+  }
+
+  nav {
+    display: flex;
+    align-items: center;
+
+    a {
+      padding: 1em 0.5em;
+      color: var(--black);
+      border-bottom: 4px solid transparent;
+      text-decoration: none;
+
+      &.active {
+        text-decoration: none;
+        border-bottom-color: var(--accent);
+      }
+    }
+  }
+</style>

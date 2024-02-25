@@ -1,0 +1,28 @@
+---
+import { getArticles } from "../../content/config";
+import ArticleItem from "./ArticleItem.astro";
+
+interface Props {}
+
+const articles = await getArticles();
+---
+
+<style>
+  ul {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    gap: 36px;
+    padding: 36px 0;
+    list-style-type: none;
+    margin: 0;
+  }
+  @media (max-width: 720px) {
+    ul {
+      gap: 0.5em;
+    }
+  }
+</style>
+<ul>
+  {articles.map((article) => <ArticleItem article={article} />)}
+</ul>

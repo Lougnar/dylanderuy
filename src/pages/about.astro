@@ -1,0 +1,181 @@
+---
+import Layout from "../layouts/BlogPost.astro";
+---
+
+<style>
+  .about__cv {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .about__experiences {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+
+    h4 {
+      margin: 16px 8px;
+    }
+  }
+</style>
+<Layout
+  title="About Me"
+  description="Dylan Deruy, Software developper"
+  pubDate={new Date("January 02 2024")}
+  heroImage="/blog-placeholder-about.jpg"
+>
+  <p>
+    Vous trouverez sur ce site des partages expériences variées. Du
+    développement web, cloud, embarqué, bas niveaux, de l'éléctronique..
+  </p>
+  <p>
+    Ce site a été construit avec Astro. J'ai choisis pour le moment de republier
+    mes contenus assez long sur Medium avec lien canonique.
+  </p>
+
+  <h2>Mon parcours</h2>
+
+  <p>
+    Passionné par d'innombrables domaines mais surtout l'informatique depuis
+    tout petit. J'ai commencé très jeune les jeux vidéos sur les genoux mon
+    grand père. Jusqu'au jour où comprendre comment mon outil préféré
+    fonctionnait et l'envie de créer est devenu plus important pour moi.
+  </p>
+  <p>
+    Quelques programmes et sites moche plus tard, j'ai entamé un cursus
+    d'apprentissage par le C et C++ qui m'ont apporté la rigueur et la
+    connaissance bas niveau nécessaire a la création de fondations solides pour
+    mon futur de développeur.
+  </p>
+  <p>
+    Aujourd'hui titulaire d'un titre RNCP (niveau 1 = bac+5) Chef de projet en
+    conception de système informatique. Je me suis spécialisé dans le
+    développement web & cloud principalement avec le framework Angular. J'ai
+    utilisé de nombreuses technologies javascript selon les besoins des projets
+    (Angular, capacitor, Ionic, NodeJs, WebGL - Pixijs, NestJs etc..).
+  </p>
+
+  <p>
+    J'explore régulièrement sur mon temps libre d'autres technologies sur de
+    petits projets.
+  </p>
+
+  <p>
+    J'aime beaucoup les activités de R&D, optimiser les performances, résoudre
+    des problèmes, tout simplement tout ce qui demande de la créativité. Je
+    consomme régulièrement énormément de contenu tech. La veille technique fait
+    partie de mon quotidien. Je suis capable de maîtriser de nouvelles
+    technologies rapidement, en toute autonomie et de transmettre le savoir
+    acquis en m'adaptant au rythme de chacun.
+  </p>
+
+  <p>J'aime échanger, transmettre mes passions à mon entourage.</p>
+
+  <section class="about__cv">
+    <h2>Mes expériences professionnelles</h2>
+    <ul class="about__experiences">
+      <li>
+        <h4>
+          Witekio - Software Engineer (Pole cloud) [ 01/12/2021 - Aujourd'hui ]
+        </h4>
+
+        <ul class="about__experience">
+          <h5>
+            Projets: Stack technique: Cloud Azure, Angular, NestJS, Capacitor,
+            Socket.io.
+          </h5>
+          <li>
+            Création d'interfaces & de systèmes de gestion de parcs de grues
+            connectées partout dans le monde.
+          </li>
+          <li>
+            Application mobile de diagnostic de grues, connectée sur réseau wifi
+            local de la grue. Remontée & gestion de défauts, d'alertes de grues
+            à tour et mobiles en temps réel. Développement natifs de plugins.
+          </li>
+          <li>
+            Application de gestion pour l'installation des devices en usine.
+          </li>
+          <li>
+            Intégration et scaling des solutions cloud Azure pour l'ingestion et
+            le traitement d'énormes quantités de données.
+          </li>
+        </ul>
+      </li>
+      <li>
+        <h4>
+          SII / AT Nehs digital - Software developper [ 15/06/2020 - 01/12/2021
+          ]
+        </h4>
+        <ul class="about__experience">
+          <h5>Assistance technique chez Nehs Digital.</h5>
+          <li>
+            Développement d'une application de diagnostique pour Radiologues
+            avec Angular 11 et PixiJs(Webgl).
+          </li>
+          <li>
+            Utilisation du framework RPC de google: GRPC pour la gestion de
+            streams http2.
+          </li>
+          <li>
+            API REST pour authentification via NestJS Création et évolution
+            d'une grappe de service docker avec docker-compose. (nginx, mysql,
+            proxy envoy pour le grpc)
+          </li>
+          <li>
+            Support niveau 3 et déploiement des services sur les infratuctures
+            clientes (Hopitaux). VM Centos 8, Window server 2019. Automatisation
+            via Ansible et outil interne.
+          </li>
+        </ul>
+      </li>
+      <li>
+        <h4>Smiile (TLAG SAS) - Lead Dev JS [ 18/09/2018 - 15/06/2020 ]</h4>
+        <ul class="about__experience">
+          <li>
+            Développement du core Javascript de l'application mobile et web
+            Smiile ainsi que les bridges Javascript - API natif avec cordova /
+            capacitor.
+          </li>
+          <li>
+            Développement de messageries temps réel avec l'utilisation de
+            websocket (socket.io)
+          </li>
+          <li>
+            Garant de la qualité de code, de sa maintenabilité et de son
+            évolutivité Responsable de l'environnement technique et de la
+            compilation du code jusqu'à sa publication sur les stores
+            (Apple/Google/web)
+          </li>
+          <li>
+            Industrialisation des processus de mise en production mobile et web
+            (Fastlane, gitlab) Veille constante sur l'évolution des technologies
+            utilisées ainsi que l'écosystème javascript.
+          </li>
+        </ul>
+      </li>
+      <li>
+        <h4>
+          Smiile (TLAG SAS) - Dev mobile full stack [ Octobre 2015 - 18/09/2018
+          ]
+        </h4>
+        <ul class="about__experience">
+          <li>Développement mobile Appcelerator Titanium.</li>
+          <li>Développement cross-platform Ionic - Cordova</li>
+          <li>Développement API php, Symfony</li>
+        </ul>
+      </li>
+      <li>
+        <h4>SARL LESUR - Stage - [ MAI - JUIN 2014 ]</h4>
+        <p>
+          Observation du métier de régulateur dans une entreprise de transport
+          sanitaire. Soutenance, proposition d'une solution d'assistance et
+          d'automatisation pour la gestion des plannings Développement en c++
+          avec le framework Qt d'un logiciel de plannification du temps de
+          travail des ambulanciers
+        </p>
+      </li>
+    </ul>
+  </section>
+</Layout>

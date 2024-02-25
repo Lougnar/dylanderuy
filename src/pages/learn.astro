@@ -1,0 +1,86 @@
+---
+import BaseHead from "../components/BaseHead.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
+import { getCollection } from "astro:content";
+import FormattedDate from "../components/FormattedDate.astro";
+import { getLangFromUrl } from "../i18n/utils";
+import { Code } from "astro:components";
+
+function buildArticlesTree(tree, fragments, article) {
+  const fragment = fragments.shift();
+
+  if (fragments.length === 0) {
+    tree[fragment] = [...(tree[fragment] ?? []), article];
+  } else {
+    tree[fragment] = buildArticlesTree(
+      tree[fragment] ?? [],
+      fragments,
+      article
+    );
+  }
+
+  return tree;
+}
+const posts = await getCollection("articles"); /*.reduce((acc, article) => {
+  const fragments = article.slug.split("/");
+  fragments.shift();
+  acc = buildArticlesTree(acc, fragments, article);
+  return acc;
+}, []);*/
+
+const lang = getLangFromUrl(Astro.url);
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+    <style>
+      main {
+        width: 940px;
+      }
+      ul {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        gap: 36px;
+        padding: 36px 0;
+        list-style-type: none;
+        margin: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <Header />
+    <main>
+      <section>
+        <ul>
+          {
+            posts.map((post) => (
+              <li>
+                <a href={`/${post.slug}/`}>
+                  <img
+                    width={200}
+                    height={100}
+                    src={post.data.heroImage}
+                    alt=""
+                  />
+                  <div class="article__preview">
+                    <h4 class="article__title">{post.data.title}</h4>
+                    <p class="article__date">
+                      <FormattedDate date={post.data.pubDate} />
+                    </p>
+                    <p class="article__text">{post.data.description + "..."}</p>
+                  </div>
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </section>
+    </main>
+    <Footer />
+  </body>
+</html>
