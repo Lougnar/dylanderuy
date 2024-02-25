@@ -1,13 +1,64 @@
 ---
-import { languages } from "../i18n/ui";
+import { AVAILABLE_LANGUAGES, DEFAULT_LANG } from "../i18n/conf";
+import { getLangFromUrl } from "../i18n/utils";
+
+const langFromUrl = getLangFromUrl(Astro.url);
 ---
 
-<ul>
-  {
-    Object.entries(languages).map(([lang, label]) => (
-      <li>
-        <a href={`/${lang}/`}>{label}</a>
-      </li>
-    ))
+<style>
+  .language-picker__list {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+    list-style: none;
+    padding: 0;
+
+    li {
+      width: 32px;
+    }
+
+    a {
+      padding: 0;
+    }
   }
-</ul>
+</style>
+<div>
+  <ul class="language-picker__list">
+    {
+      AVAILABLE_LANGUAGES.map((lang) => (
+        <li>
+          <a
+            class:list={[
+              "languages-picker__link",
+              {
+                active: lang === langFromUrl,
+              },
+            ]}
+            href={lang === DEFAULT_LANG ? "/" : `/${lang}/`}
+          >
+            <img src={`/icons/${lang}.svg`} />
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+  <script>
+    import { AVAILABLE_LANGUAGES } from "../i18n/conf";
+
+    for (let link of document.getElementsByClassName(
+      "languages-picker__link"
+    ) as HTMLCollectionOf<HTMLAnchorElement>) {
+      link.addEventListener("click", (event) => {
+        event.preventDefault();
+
+        const [, ...path] = location.pathname.split("/");
+
+        if (AVAILABLE_LANGUAGES.includes(path[0])) {
+          path.shift();
+        }
+
+        location.replace(`${link.href}${path.join("/")}`);
+      });
+    }
+  </script>
+</div>

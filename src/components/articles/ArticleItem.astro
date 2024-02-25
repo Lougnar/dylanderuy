@@ -2,79 +2,101 @@
 /** @jsxImportSource astro */
 import type { CollectionEntry } from "astro:content";
 import FormattedDate from "../FormattedDate.astro";
+import type { AVAILABLE_LANGUAGES } from "../../i18n/conf";
 
 interface Props {
   article: CollectionEntry<"articles">;
+  lang: (typeof AVAILABLE_LANGUAGES)[number];
 }
 
-const { article } = Astro.props;
+const { article, lang } = Astro.props;
 ---
 
 <style>
   .article__item {
     width: 100%;
+    min-height: 200px;
+    box-sizing: border-box;
+    background-color: white;
+    box-shadow: var(--box-shadow);
+    border-radius: var(--border-radius);
+    transition: transform 1s ease;
+
+    &:hover {
+      transform: scale(1.05) translateZ(20px);
+      transform-style: preserve-3d;
+      box-shadow: var(--box-shadow);
+    }
 
     * {
       text-decoration: none;
-      transition: 0.2s ease;
+      transform-style: preserve-3d;
     }
+
     img {
-      border-radius: 12px;
+      border-radius: var(--border-radius) 0 0 var(--border-radius);
     }
     a {
       display: flex;
-      gap: 16px;
+      height: 100%;
+      width: 100%;
     }
 
     .article__title {
       margin: 0;
-      color: rgb(var(--black));
-      line-height: 1;
+      color: var(--accent);
     }
+
     .article__date {
       margin: 0;
       color: rgb(var(--gray));
     }
     .article__preview {
       flex: 1;
+      padding: var(--padding);
     }
 
     .article__text {
       margin: 0;
-      overflow: hidden;
       text-overflow: ellipsis;
       box-sizing: border-box;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 3;
+      overflow: hidden;
+      color: var(--color);
     }
-
-    a:hover h4,
-    a:hover .article__date {
-      color: rgb(var(--accent));
-    }
-    a:hover img {
-      box-shadow: var(--box-shadow);
-    }
-
-    @media (max-width: 720px) {
-      width: 100%;
-      text-align: center;
-      &:first-child {
-        margin-bottom: 0;
+  }
+  @media (max-width: 600px) {
+    .article__item {
+      a {
+        width: 360px;
+        display: flex;
+        flex-direction: column;
       }
-      &:first-child .article__title {
-        font-size: 1.563em;
+
+      img {
+        width: 360px;
       }
+    }
+  }
+
+  :global(.dark-theme) {
+    .article__item {
+      background-color: var(--background);
+      border: 1px solid var(--accent);
     }
   }
 </style>
 <li class="article__item">
   <a href={`/${article.slug}/`}>
-    <img width={200} height={100} src={article.data.heroImage} alt="" />
+    <img height="100%" src={article.data.heroImage} alt="" />
     <div class="article__preview">
       <h4 class="article__title">{article.data.title}</h4>
       <p class="article__date">
-        <FormattedDate date={article.data.pubDate} />
+        <FormattedDate lang={lang} date={article.data.pubDate} />
       </p>
-      <p class="article__text">{article.data.description + "..."}</p>
+      <p class="article__text">{article.data.description}</p>
     </div>
   </a>
 </li>

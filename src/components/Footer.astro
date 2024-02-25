@@ -1,29 +1,35 @@
 ---
+import { getLangFromUrl, useTranslations } from "../i18n/utils";
+
 const today = new Date();
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 ---
 
 <footer>
-  &copy; {today.getFullYear()} Dylan Deruy. All rights reserved.
-  <div class="social-links"></div>
+  <span class="footer__copyright"
+    >&copy; {today.getFullYear()} Dylan Deruy -- {t("footer.copyright")}
+    <a
+      href="https://creativecommons.org/licenses/by-sa/4.0/deed.fr"
+      target="__blank">cc by-sa 4.0</a
+    >.
+  </span>
 </footer>
 <style>
   footer {
-    padding: 2em 1em 6em 1em;
-    background: linear-gradient(var(--gray-gradient)) no-repeat;
-    color: rgb(var(--gray));
+    padding: 16px;
+    background-color: var(--pakistan-green);
+    color: white;
     text-align: center;
+    border-top: var(--layout-border);
+    background-color: var(--footer-background);
+
+    a {
+      color: var(--accent);
+    }
   }
-  .social-links {
-    display: flex;
-    justify-content: center;
-    gap: 1em;
-    margin-top: 1em;
-  }
-  .social-links a {
-    text-decoration: none;
-    color: rgb(var(--gray));
-  }
-  .social-links a:hover {
-    color: rgb(var(--gray-dark));
+  .footer__copyright {
+    font-size: 0.9rem;
   }
 </style>

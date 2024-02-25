@@ -1,0 +1,40 @@
+---
+import LearningSheet from "./LearningSheet.astro";
+import type { Article } from "../../content/config";
+
+interface Props {
+  articles: { [key: string]: Article };
+}
+
+const { articles } = Astro.props;
+---
+
+<style>
+  ul {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    gap: 36px;
+    padding: 36px 0;
+    list-style-type: none;
+    margin: 0;
+  }
+  @media (max-width: 720px) {
+    ul {
+      gap: 0.5em;
+    }
+  }
+</style>
+<ul>
+  {
+    articles.map((article) => (
+      <li>
+        (Array.isArray(article) ? (
+        <Astro.self articles={article} />
+        ) : (
+        <LearningSheet article={article} />
+        ))
+      </li>
+    ))
+  }
+</ul>

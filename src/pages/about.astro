@@ -6,71 +6,58 @@ import Layout from "../layouts/BlogPost.astro";
   .about__cv {
     display: flex;
     flex-direction: column;
+    h4 {
+      color: var(--accent);
+    }
+    h5 {
+      color: rgb(var(--gray));
+    }
   }
 
   .about__experiences {
+    padding: 0;
     list-style: none;
     display: flex;
     flex-direction: column;
     gap: 32px;
-
-    h4 {
-      margin: 16px 8px;
-    }
   }
 </style>
 <Layout
-  title="About Me"
+  title="À propos"
   description="Dylan Deruy, Software developper"
   pubDate={new Date("January 02 2024")}
   heroImage="/blog-placeholder-about.jpg"
 >
   <p>
-    Vous trouverez sur ce site des partages expériences variées. Du
-    développement web, cloud, embarqué, bas niveaux, de l'éléctronique..
+    Vous trouverez sur ce site des partages d'expériences variées selon mes
+    passions du moment. Du développement web, cloud, embarqué, de
+    l'éléctronique..
   </p>
-  <p>
-    Ce site a été construit avec Astro. J'ai choisis pour le moment de republier
-    mes contenus assez long sur Medium avec lien canonique.
-  </p>
+  <p>Ce site a été construit avec Astro.</p>
 
   <h2>Mon parcours</h2>
 
   <p>
-    Passionné par d'innombrables domaines mais surtout l'informatique depuis
-    tout petit. J'ai commencé très jeune les jeux vidéos sur les genoux mon
-    grand père. Jusqu'au jour où comprendre comment mon outil préféré
-    fonctionnait et l'envie de créer est devenu plus important pour moi.
+    Passionné par d'innombrables domaines, mais surtout l'informatique. J'ai
+    commencé très jeune par les jeux vidéos sur les genoux mon grand père.
+    Jusqu'au jour où comprendre comment mon outil préféré fonctionnait et
+    l'envie de créer est devenu plus important pour moi.
   </p>
   <p>
     Quelques programmes et sites moche plus tard, j'ai entamé un cursus
-    d'apprentissage par le C et C++ qui m'ont apporté la rigueur et la
-    connaissance bas niveau nécessaire a la création de fondations solides pour
-    mon futur de développeur.
+    d'apprentissage par le C, C++ et le développement embarqué sur beaglebone.
   </p>
   <p>
-    Aujourd'hui titulaire d'un titre RNCP (niveau 1 = bac+5) Chef de projet en
-    conception de système informatique. Je me suis spécialisé dans le
-    développement web & cloud principalement avec le framework Angular. J'ai
-    utilisé de nombreuses technologies javascript selon les besoins des projets
-    (Angular, capacitor, Ionic, NodeJs, WebGL - Pixijs, NestJs etc..).
+    Aujourd'hui après passage d'un titre RNCP (Bac+5) au titre fumeux. Je me
+    suis spécialisé dans le développement web & cloud suite a mes différences
+    expériences pro. J'ai mis la main sur de nombreuses technos javascript selon
+    les besoins des projets. (Angular, capacitor, Ionic, NodeJs, WebGL - Pixijs,
+    Socket.io, NestJs etc..).
   </p>
-
-  <p>
-    J'explore régulièrement sur mon temps libre d'autres technologies sur de
-    petits projets.
-  </p>
-
   <p>
     J'aime beaucoup les activités de R&D, optimiser les performances, résoudre
-    des problèmes, tout simplement tout ce qui demande de la créativité. Je
-    consomme régulièrement énormément de contenu tech. La veille technique fait
-    partie de mon quotidien. Je suis capable de maîtriser de nouvelles
-    technologies rapidement, en toute autonomie et de transmettre le savoir
-    acquis en m'adaptant au rythme de chacun.
+    des problèmes. Tout simplement tout ce qui demande de la créativité.
   </p>
-
-  <p>J'aime échanger, transmettre mes passions à mon entourage.</p>
 
   <section class="about__cv">
     <h2>Mes expériences professionnelles</h2>
@@ -79,12 +66,11 @@ import Layout from "../layouts/BlogPost.astro";
         <h4>
           Witekio - Software Engineer (Pole cloud) [ 01/12/2021 - Aujourd'hui ]
         </h4>
-
+        <h5>
+          Projets: Stack technique: Cloud Azure, Angular, NestJS, Capacitor,
+          Socket.io.
+        </h5>
         <ul class="about__experience">
-          <h5>
-            Projets: Stack technique: Cloud Azure, Angular, NestJS, Capacitor,
-            Socket.io.
-          </h5>
           <li>
             Création d'interfaces & de systèmes de gestion de parcs de grues
             connectées partout dans le monde.
@@ -108,11 +94,11 @@ import Layout from "../layouts/BlogPost.astro";
           SII / AT Nehs digital - Software developper [ 15/06/2020 - 01/12/2021
           ]
         </h4>
+        <h5>Assistance technique chez Nehs Digital.</h5>
         <ul class="about__experience">
-          <h5>Assistance technique chez Nehs Digital.</h5>
           <li>
             Développement d'une application de diagnostique pour Radiologues
-            avec Angular 11 et PixiJs(Webgl).
+            avec Angular et PixiJs(Webgl).
           </li>
           <li>
             Utilisation du framework RPC de google: GRPC pour la gestion de
@@ -157,8 +143,7 @@ import Layout from "../layouts/BlogPost.astro";
       </li>
       <li>
         <h4>
-          Smiile (TLAG SAS) - Dev mobile full stack [ Octobre 2015 - 18/09/2018
-          ]
+          Smiile (TLAG SAS) - Développeur mobile [ Octobre 2015 - 18/09/2018 ]
         </h4>
         <ul class="about__experience">
           <li>Développement mobile Appcelerator Titanium.</li>

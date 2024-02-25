@@ -1,28 +1,31 @@
 ---
 import { getArticles } from "../../content/config";
+import type { AVAILABLE_LANGUAGES } from "../../i18n/conf";
 import ArticleItem from "./ArticleItem.astro";
 
-interface Props {}
-
-const articles = await getArticles();
+interface Props {
+  lang: (typeof AVAILABLE_LANGUAGES)[number];
+}
+const { lang } = Astro.props;
+const articles = await getArticles(lang);
 ---
 
 <style>
-  ul {
+  .article-list {
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
-    gap: 36px;
     padding: 36px 0;
+    gap: 32px;
     list-style-type: none;
     margin: 0;
   }
-  @media (max-width: 720px) {
-    ul {
-      gap: 0.5em;
+  @media (max-width: 600px) {
+    .article-list {
+      gap: 16px;
     }
   }
 </style>
-<ul>
-  {articles.map((article) => <ArticleItem article={article} />)}
+<ul class="article-list">
+  {articles.map((article) => <ArticleItem article={article} lang={lang} />)}
 </ul>

@@ -1,46 +1,72 @@
-import { ui, defaultLang, showDefaultLang, routes } from "./ui";
+import { SHOW_DEFAULT_LANG, DEFAULT_LANG, AVAILABLE_LANGUAGES } from "./conf";
 
-export function useTranslatedPath(lang: keyof typeof ui) {
+/*export function useTranslatedPath(lang: keyof typeof ui) {
   return function translatePath(path: string, l: string = lang) {
     const pathName = path.replaceAll("/", "");
     const hasTranslation =
-      defaultLang !== l &&
+      DEFAULT_LANG !== l &&
       routes[l] !== undefined &&
       routes[l][pathName] !== undefined;
     const translatedPath = hasTranslation ? "/" + routes[l][pathName] : path;
 
-    return !showDefaultLang && l === defaultLang
+    return !SHOW_DEFAULT_LANG && l === DEFAULT_LANG
       ? translatedPath
       : `/${l}${translatedPath}`;
   };
+}*/
+
+/**
+ * Load translations files to be used in SSG
+ */
+export async function loadTranslations() {
+  const translations = {};
+  const langFiles = AVAILABLE_LANGUAGES.map((lang) =>
+    import(`./translations/${lang}.json`).then((m) => ({
+      lang,
+      file: m.default,
+    }))
+  );
+
+  for await (const { lang, file } of langFiles) {
+    translations[lang] = file;
+  }
+
+  return translations;
 }
 
-export function getLangFromUrl(url: URL) {
-  const [, lang] = url.pathname.split("/");
-  if (lang in ui) return lang as keyof typeof ui;
-  return defaultLang;
-}
+export const translations = await loadTranslations();
 
-export function useTranslations(lang: keyof typeof ui) {
-  return function t(key: keyof (typeof ui)[typeof defaultLang]) {
-    return ui[lang][key] || ui[defaultLang][key];
+/**
+ * Return function to translate in given lang
+ */
+export function useTranslations(lang: string) {
+  return function t(key: string) {
+    return translations[lang][key];
   };
 }
 
-export function getRouteFromUrl(url: URL): string | undefined {
+export function getPathFromLocalizedUrl(url: URL) {
+  const [, ...path] = url.pathname.split("/");
+  if (AVAILABLE_LANGUAGES.includes(path[0])) path.shift();
+  return path.join("/");
+}
+
+/**
+ * @returns lang in URL or DEFAULT_LANG
+ */
+export function getLangFromUrl(url: URL) {
+  const [, lang] = url.pathname.split("/");
+  if (AVAILABLE_LANGUAGES.includes(lang)) return lang;
+  return DEFAULT_LANG;
+}
+
+/*export function getRouteFromUrl(url: URL): string | undefined {
   const pathname = new URL(url).pathname;
   const parts = pathname?.split("/");
   const path = parts.pop() || parts.pop();
 
   if (path === undefined) {
     return undefined;
-  }
-
-  const currentLang = getLangFromUrl(url);
-
-  if (defaultLang === currentLang) {
-    const route = Object.values(routes)[0];
-    return route[path] !== undefined ? route[path] : undefined;
   }
 
   const getKeyByValue = (
@@ -57,4 +83,4 @@ export function getRouteFromUrl(url: URL): string | undefined {
   }
 
   return undefined;
-}
+}*/

@@ -5,44 +5,39 @@ import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import FormattedDate from "../components/FormattedDate.astro";
 
-type Props = CollectionEntry<"articles">["data"];
+type Props = { lang: string } & CollectionEntry<"articles">["data"];
 
-const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
+const { lang, title, description, pubDate, updatedDate, heroImage, author } =
+  Astro.props;
 ---
 
-<html lang="en">
+<html lang={lang}>
   <head>
     <BaseHead title={title} description={description} />
     <style>
-      main {
-        width: calc(100% - 2em);
-        max-width: 100%;
-        margin: 0;
+      .article {
+        background-color: white;
+        padding: var(--padding);
+        box-shadow: var(--box-shadow);
       }
       .hero-image {
         width: 100%;
+        max-width: 700px;
+        border-radius: var(--border-radius);
+        margin: auto;
+        display: block;
       }
       .hero-image img {
         display: block;
         margin: 0 auto;
-        border-radius: 12px;
-        box-shadow: var(--box-shadow);
-      }
-      .prose {
-        width: 940px;
-        max-width: calc(100% - 2em);
-        margin: auto;
-        padding: 1em;
-        color: rgb(var(--gray-dark));
+        border-radius: var(--border-radius);
       }
       .title {
-        margin-bottom: 1em;
         padding: 1em 0;
-        text-align: center;
-        line-height: 1;
+        text-align: left;
       }
       .title h1 {
-        margin: 0 0 0.5em 0;
+        margin: 0 0 16px 0;
       }
       .date {
         margin-bottom: 0.5em;
@@ -51,37 +46,49 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
       .last-updated-on {
         font-style: italic;
       }
+
+      main {
+        padding: 16px;
+      }
+
+      @media (max-width: 600px) {
+        main {
+          padding: 0;
+        }
+      }
+
+      ::global(.dark-theme) {
+        .article {
+          background-color: var(--background);
+          border: var(--layout-border);
+        }
+      }
     </style>
   </head>
 
   <body>
     <Header />
     <main>
-      <article>
-        <div class="prose">
-          <div class="title">
-            <div class="date">
-              <FormattedDate date={pubDate} />
-              {
-                updatedDate && (
-                  <div class="last-updated-on">
-                    Last updated on <FormattedDate date={updatedDate} />
-                  </div>
-                )
-              }
-            </div>
-            <h1>{title}</h1>
-            <hr />
-          </div>
-          <div class="hero-image">
+      <article class="article">
+        <div class="title">
+          <h1>{title}</h1>
+          <div class="date">
+            <span>{author ? author : "Dylan Deruy"} |</span>
+            <FormattedDate date={pubDate} />
             {
-              heroImage && (
-                <img width={1020} height={510} src={heroImage} alt="" />
+              updatedDate && (
+                <div class="last-updated-on">
+                  Last updated on <FormattedDate date={updatedDate} />
+                </div>
               )
             }
           </div>
-          <slot />
+
+          <hr />
         </div>
+        {heroImage && <img class="hero-image" src={heroImage} alt="" />}
+
+        <slot />
       </article>
     </main>
     <Footer />

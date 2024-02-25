@@ -1,0 +1,131 @@
+---
+import { getLangFromUrl, useTranslations } from "../i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<style>
+  .search-bar {
+    height: 46px;
+    border-radius: var(--border-radius);
+    padding-left: 8px;
+    overflow: hidden;
+    background-color: rgba(0, 0, 0, 0.1);
+    border: rgba(0, 0, 0, 0.1) solid 1px;
+    min-width: 200px;
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    align-items: center;
+
+    input {
+      width: 100%;
+      font-size: 1.1rem;
+      padding: 0;
+      margin: 0;
+      display: block;
+      box-sizing: border-box;
+      height: 100%;
+      background-color: transparent;
+      color: var(--color);
+      box-shadow: none;
+      border: none;
+      border-radius: 0;
+      flex: 1;
+
+      &:focus {
+        outline: none;
+      }
+    }
+
+    img {
+      height: 32px;
+      width: 32px;
+    }
+
+    button {
+      background-color: rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+      padding: 0 8px;
+      height: 100%;
+      border: none;
+
+      &:hover {
+        background-color: rgba(0, 0, 0, 0.2);
+      }
+    }
+  }
+
+  :global(.dark-theme) {
+    .search-bar {
+      background-color: rgba(255, 255, 255, 0.1);
+      border: rgba(255, 255, 255, 0.1) solid 1px;
+
+      input {
+        &::placeholder {
+          color: rgba(255, 255, 255, 0.5);
+        }
+      }
+
+      button {
+        background-color: rgba(255, 255, 255, 0.1);
+
+        svg {
+          color: white;
+        }
+
+        &:hover {
+          background-color: rgba(255, 255, 255, 0.2);
+        }
+      }
+    }
+  }
+</style>
+<form
+  id="search-bar"
+  class="search-bar"
+  action="https://duckduckgo.com/"
+  method="GET"
+>
+  <input
+    id="search-bar__value"
+    type="text"
+    placeholder={t("search.placeholder")}
+  />
+  <input
+    type="hidden"
+    name="q"
+    id="search-bar__query"
+    value="site:https://deruydylan.fr"
+  />
+  <button type="submit">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      height="32"
+      viewBox="0 -960 960 960"
+      width="32"
+      ><path
+        d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z"
+        fill="currentColor"></path></svg
+    >
+  </button>
+</form>
+<script>
+  import { SITE_URL } from "./../consts";
+
+  const searchBarQuery = document.getElementById(
+    "search-bar__query"
+  ) as HTMLInputElement;
+  const searchBarValue = document.getElementById(
+    "search-bar__value"
+  ) as HTMLInputElement;
+
+  if (searchBarQuery && searchBarValue) {
+    document
+      .getElementById("search-bar")
+      ?.addEventListener("submit", (event) => {
+        searchBarQuery.value = `${searchBarValue.value} site:${SITE_URL}`;
+      });
+  }
+</script>
