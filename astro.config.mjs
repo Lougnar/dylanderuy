@@ -6,7 +6,19 @@ import sitemap from "@astrojs/sitemap";
 // https://astro.build/config
 export default defineConfig({
   site: "https://example.com",
-  integrations: [mdx(), sitemap()],
+  integrations: [
+    mdx(),
+    sitemap({
+      filter: (page) => !page.includes("legal-terms"),
+      i18n: {
+        defaultLocale: "fr",
+        locales: {
+          fr: "fr",
+          en: "en",
+        },
+      },
+    }),
+  ],
   i18n: {
     defaultLocale: DEFAULT_LANG,
     locales: AVAILABLE_LANGUAGES,

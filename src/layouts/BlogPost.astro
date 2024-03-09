@@ -5,9 +5,12 @@ import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import FormattedDate from "../components/FormattedDate.astro";
 
-type Props = { lang: string } & CollectionEntry<"articles">["data"];
+type Props = {
+  lang: string;
+  description: string;
+} & CollectionEntry<"articles">["data"];
 
-const { lang, title, description, pubDate, updatedDate, heroImage, author } =
+const { lang, title, pubDate, description, updatedDate, heroImage, author } =
   Astro.props;
 ---
 

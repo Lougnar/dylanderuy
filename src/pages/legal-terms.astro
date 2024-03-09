@@ -1,0 +1,69 @@
+---
+import { getLangFromUrl, useTranslations } from "../i18n/utils";
+import Layout from "../layouts/Page.astro";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<style></style>
+<Layout
+  title="Legal terms"
+  description="Dylan Deruy, Software developper"
+  pubDate={new Date("January 01 2024")}
+  noindex="true"
+>
+  <h1>MENTIONS LÉGALES</h1>
+  <p>
+    Conformément aux dispositions des Articles 6-III et 19 de la Loi n°2004-575
+    du 21 juin 2004 pour la Confiance dans l’économie numérique, dite L.C.E.N.,
+    il est porté à la connaissance des utilisateurs et visiteurs, ci-après
+    l""Utilisateur”, du site www.dylanderuy.com , ci-après le “Site”, les
+    présentes mentions légales. La connexion et la navigation sur le Site par
+    l’Utilisateur implique acceptation intégrale et sans réserve des présentes
+    mentions légales. Ces dernières sont accessibles sur le Site à la rubrique «
+    mentions légales ».
+  </p>
+  <h2>L’EDITEUR</h2>
+  <p>
+    Pour contacter l’editeur du site, envoyez un email à : deruy.dylan@live.fr
+  </p>
+  <h2>L’HEBERGEUR</h2>
+  <p>
+    L’hébergeur du Site est la société Cloudflare: <br />
+    Cloudflare,Inc. Attn: Legal<br />
+    Department 101 Townsend St,<br />
+    San Francisco,<br />
+    CA 94107<br />
+    Pour contacter Cloudflare: https://support.cloudflare.com/hc/fr-fr ou support@cloudflare.com
+  </p>
+  <h2>ACCES AU SITE</h2>
+  <p>
+    Le Site est accessible en tout endroit, 7j/7, 24h/24 sauf cas de force
+    majeure, interruption programmée ou non et pouvant découlant d’une nécessité
+    de maintenance. En cas de modification, interruption ou suspension du
+    Site,l’Editeur ne saurait être tenu responsable.
+  </p>
+  <h2>COLLECTE DES DONNEES</h2>
+  <p>
+    Aucune donnée n'est directement enregistrée par www.dylanderuy.com.
+    <br />
+    <br />
+    Nous utilisons une technologie de Cloudflare pour récolter quelques métrics de
+    performances du site dans le respect de la vie privée. <br />
+    Les garanties du service analytic de Cloudflare: “Cloudflare Web Analytics n’utilise
+    aucun état côté client, tel que les cookies ou localStorage, pour collecter des
+    métriques d’utilisation. Nous ne prenons pas non plus d’empreintes digitales
+    des individus via leur adresse IP, la chaîne de l’agent utilisateur ou toute
+    autre donnée dans le but d’afficher des analyses. Nos analyses sont non invasives
+    et respectent la vie privée de vos visiteurs.
+  </p>
+  <h2>PROPRIÉTÉ INTELLECTUELLE</h2>
+  <p>
+    {t("footer.copyright")}
+    <a
+      href="https://creativecommons.org/licenses/by-sa/4.0/deed.fr"
+      target="__blank">cc by-sa 4.0</a
+    >.
+  </p>
+</Layout>

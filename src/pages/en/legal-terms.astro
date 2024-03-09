@@ -1,0 +1,63 @@
+---
+import { getLangFromUrl, useTranslations } from "./../../i18n/utils";
+import Layout from "./../../layouts/Page.astro";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<style></style>
+<Layout
+  title="website terms"
+  description="website terms"
+  pubDate={new Date("January 01 2024")}
+  noindex="true"
+>
+  <h1>LEGAL TERMS</h1>
+  <p>
+    It is brought to the attention of users and visitors, below the “User”, of
+    the site www.dylanderuy.com, below the “Site”, the legal terms. Connection
+    and navigation on the Site by the User implies full and unreserved
+    acceptance of the present terms. These are accessible on the Site under the
+    heading “Legal terms".
+  </p>
+  <h2>THE PUBLISHER</h2>
+  <p>To contact the publisher, send an email to: deruy.dylan@live.fr</p>
+  <h2>THE HOST</h2>
+  <p>
+    The host is the Cloudflare company : <br />
+    Cloudflare,Inc. Attn: Legal<br />
+    Department 101 Townsend St,<br />
+    San Francisco,<br />
+    CA 94107<br />
+    To contact Cloudflare: https://support.cloudflare.com/hc/fr-fr ou support@cloudflare.com
+  </p>
+  <h2>ACCESS TO THE WEBSITE</h2>
+  <p>
+    The Site is accessible anywhere, 7 days a week, 24 hours a day except in
+    cases of major issue, planned or unplanned interruption and which may arise
+    from a necessity of maintenance. In the event of modification, interruption
+    or suspension of the website, the Publisher cannot be held responsible.
+  </p>
+  <h2>PRIVACY POLICY</h2>
+  <p>
+    No data is directly collected by www.dylanderuy.com
+    <br />
+    <br />
+    We use Cloudflare technology to collect some performance metrics of the website
+    while respecting privacy. <br />
+    Cloudflare analytics service guarantees: “Cloudflare Web Analytics does not use
+    any client-side state, such as cookies or localStorage, to collect usage metrics.
+    We also don’t “fingerprint” individuals via their IP address, User Agent string,
+    or any other data for the purpose of displaying analytics. Our analytics are
+    non-invasive and respect the privacy of your visitors.""
+  </p>
+  <h2>INTELLECTUAL PROPERTY</h2>
+  <p>
+    {t("footer.copyright")}
+    <a
+      href="https://creativecommons.org/licenses/by-sa/4.0/deed.fr"
+      target="__blank">cc by-sa 4.0</a
+    >.
+  </p>
+</Layout>

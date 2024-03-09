@@ -2,7 +2,6 @@
 import { type CollectionEntry } from "astro:content";
 import BlogPost from "../layouts/BlogPost.astro";
 import { getArticles } from "../content/config";
-import { DEFAULT_LANG } from "../i18n/conf";
 import { getLangFromUrl } from "../i18n/utils";
 
 export async function getStaticPaths() {
@@ -22,6 +21,10 @@ const { Content } = await article.render();
 const lang = getLangFromUrl(Astro.url);
 ---
 
-<BlogPost lang={lang} {...article.data}>
+<BlogPost
+  lang={lang}
+  {...article.data}
+  description={article.body.substring(0, 200)}
+>
   <Content />
 </BlogPost>

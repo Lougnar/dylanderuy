@@ -2,6 +2,7 @@
 import { getLangFromUrl, useTranslations } from "../i18n/utils";
 
 const today = new Date();
+import { getRelativeLocaleUrl } from "astro:i18n";
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
@@ -15,6 +16,11 @@ const t = useTranslations(lang);
       target="__blank">cc by-sa 4.0</a
     >.
   </span>
+  <a
+    class="footer__copyright"
+    href={getRelativeLocaleUrl(lang, "/legal-terms")}
+    target="__blank">{t("footer.legalTerms")}</a
+  >
 </footer>
 <style>
   footer {
@@ -24,9 +30,15 @@ const t = useTranslations(lang);
     text-align: center;
     border-top: var(--layout-border);
     background-color: var(--footer-background);
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
 
     a {
       color: var(--accent);
+      white-space: nowrap;
     }
   }
   .footer__copyright {

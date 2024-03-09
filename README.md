@@ -1,7 +1,10 @@
 ## TODO
 
+- Improve RSS FEED
+- HEADER alternative translated pages
+- canonical url ?.
+
 - FIRST ARTICLE
-- PAGINATION
 - View transition API ??
 - About page illustrations
 
