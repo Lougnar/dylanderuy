@@ -19,6 +19,7 @@ const { article, lang } = Astro.props;
     box-sizing: border-box;
     background-color: white;
     box-shadow: var(--box-shadow);
+    border: var(--layout-border);
     border-radius: var(--border-radius);
     transition: transform 1s ease;
 
@@ -84,7 +85,6 @@ const { article, lang } = Astro.props;
   :global(.dark-theme) {
     .article__item {
       background-color: var(--background);
-      border: 1px solid var(--accent);
     }
   }
 </style>

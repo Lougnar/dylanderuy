@@ -18,7 +18,15 @@ const { lang, title, description, pubDate, updatedDate, heroImage, author } =
       .article {
         background-color: white;
         padding: var(--padding);
-        box-shadow: var(--box-shadow);
+        border: var(--layout-border);
+        border-radius: var(--border-radius);
+
+        h1 {
+          color: var(--accent);
+        }
+      }
+      .giscus {
+        padding: 16px 0;
       }
       .hero-image {
         width: 100%;
@@ -60,7 +68,6 @@ const { lang, title, description, pubDate, updatedDate, heroImage, author } =
       ::global(.dark-theme) {
         .article {
           background-color: var(--background);
-          border: var(--layout-border);
         }
       }
     </style>
@@ -90,6 +97,33 @@ const { lang, title, description, pubDate, updatedDate, heroImage, author } =
 
         <slot />
       </article>
+      <section class="giscus"></section>
+      <script is:inline>
+        let giscusTheme = getGiscusTheme(getPreferedTheme());
+        let giscusAttributes = {
+          src: "https://giscus.app/client.js",
+          "data-repo": "Lougnar/dylanderuy",
+          "data-repo-id": "R_kgDOLX3-_w",
+          "data-category": "Blog posts comments",
+          "data-category-id": "DIC_kwDOLX3-_84Cd2DO",
+          "data-mapping": "url",
+          "data-strict": "0",
+          "data-reactions-enabled": "1",
+          "data-emit-metadata": "0",
+          "data-input-position": "bottom",
+          "data-theme": giscusTheme,
+          "data-lang": document.documentElement.lang,
+          "data-loading": "lazy",
+          crossorigin: "anonymous",
+          async: "",
+        };
+
+        let giscusScript = document.createElement("script");
+        Object.entries(giscusAttributes).forEach(([key, value]) =>
+          giscusScript.setAttribute(key, value)
+        );
+        document.body.appendChild(giscusScript);
+      </script>
     </main>
     <Footer />
   </body>

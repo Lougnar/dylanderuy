@@ -25,24 +25,24 @@
 	linear-gradient(-45deg, transparent 75px, transparent 76px, #a4a4a4 76px, #a4a4a4 77px, transparent 78px, transparent 109px),
 	#fff;
 	--color: black;
-	--layout-border: 1px solid var(--pakistan-green);
+	--layout-border: 1px solid #d0d7de;
 	--header-background: white;
-	--footer-background: var(--pakistan-green);
+	--footer-background: white;
 	--box-shadow: 0 5px 10px 5px  rgb(0 0 0 / .1);
 	--gray: 96, 115, 159;
-	--accent: #718d19;
+	--accent: #46954a;
  }
 
 
 .dark-theme {
-	--background: #212737;
+	--background: #22272e;
 	--color: white;
-	--layout-border: 1px solid var(--accent);
+	--layout-border: 1px solid #444c56;
 	--header-background: var(--background);
 	--footer-background: var(--background);
-	--box-shadow: 0 0px 5px 3px  rgb(255 255 255 / .1);
+	--box-shadow: 0 0px 0px 0px  rgb(255 255 255 / .1);
 	--gray: 143, 206, 255;
-	--accent: #8bc34a;
+	--accent: #46954a;
 }
 	
 
