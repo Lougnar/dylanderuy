@@ -1,13 +1,14 @@
 ---
-import { getArticles } from "../../content/config";
+import type { CollectionEntry } from "astro:content";
 import type { AVAILABLE_LANGUAGES } from "../../i18n/conf";
 import ArticleItem from "./ArticleItem.astro";
 
 interface Props {
   lang: (typeof AVAILABLE_LANGUAGES)[number];
+  articles: CollectionEntry<"articles">[];
 }
-const { lang } = Astro.props;
-const articles = await getArticles(lang);
+
+const { lang, articles } = Astro.props;
 ---
 
 <style>
@@ -27,5 +28,5 @@ const articles = await getArticles(lang);
   }
 </style>
 <ul class="article-list">
-  {articles.map((article) => <ArticleItem article={article} lang={lang} />)}
+  {articles?.map((article) => <ArticleItem article={article} lang={lang} />)}
 </ul>

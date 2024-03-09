@@ -4,8 +4,11 @@ import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import ArticlesList from "../components/articles/ArticlesList.astro";
 import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
+import Pagination from "../components/Pagination.astro";
+import { DEFAULT_LANG } from "../i18n/conf";
 
-const { lang } = Astro.props;
+const { lang, page } = Astro.props;
+const totalPage = Math.ceil(page.total / page.size);
 ---
 
 <!doctype html>
@@ -26,7 +29,25 @@ const { lang } = Astro.props;
   <body>
     <Header />
     <main>
-      <ArticlesList lang={lang} />
+      <ArticlesList lang={lang} articles={page?.data} />
+      {
+        page && (page.currentPage !== 1 || page.data.length >= page.size) && (
+          <Pagination
+            firstPage={
+              page.url.prev ? `/${lang !== DEFAULT_LANG ? lang : ""}` : null
+            }
+            previousPage={page.url.prev ? page.url.prev : null}
+            nextPage={page.url.next ? page.url.next : null}
+            lastPage={
+              page.url.next
+                ? `${lang !== DEFAULT_LANG ? "/" + lang : ""}/${totalPage}`
+                : null
+            }
+            currentPage={page.currentPage}
+            totalPages={totalPage}
+          />
+        )
+      }
     </main>
     <Footer />
   </body>

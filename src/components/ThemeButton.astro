@@ -44,7 +44,7 @@
     const iframe = document.querySelector("iframe.giscus-frame");
 
     if (!iframe) return;
-    console.log("sebnd giscusTheme", giscusTheme);
+
     iframe?.contentWindow?.postMessage(
       { giscus: { setConfig: { theme: giscusTheme } } },
       "https://giscus.app"

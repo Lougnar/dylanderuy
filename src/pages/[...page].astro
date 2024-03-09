@@ -1,0 +1,51 @@
+---
+import { getArticles } from "../content/config";
+import { AVAILABLE_LANGUAGES, DEFAULT_LANG } from "../i18n/conf";
+import { getLangFromUrl } from "../i18n/utils";
+import BlogFeed from "../layouts/BlogFeed.astro";
+
+export async function getStaticPaths({ paginate }) {
+  return await Promise.all(
+    AVAILABLE_LANGUAGES.map(async (availableLanguage) => {
+      const articles = await getArticles(availableLanguage);
+      return paginate(articles, {
+        pageSize: 10,
+      }).map((page) => {
+        // manage differents feeds for all languages
+        const pagePrefix =
+          availableLanguage !== DEFAULT_LANG ? `/${availableLanguage}` : "";
+
+        const pageUrl = page.props.page.url;
+
+        return {
+          ...page,
+          params: {
+            ...page.params,
+            page:
+              page.params.page || pagePrefix
+                ? `${pagePrefix}/${page.params.page ?? ""}`
+                : undefined,
+          },
+          props: {
+            ...page.props,
+            page: {
+              ...page.props.page,
+              url: {
+                ...pageUrl,
+                current: `${pagePrefix}${pageUrl.current}`,
+                next: pageUrl.next ? `${pagePrefix}${pageUrl.next}` : undefined,
+                prev: pageUrl.prev ? `${pagePrefix}${pageUrl.prev}` : undefined,
+              },
+            },
+          },
+        };
+      });
+    })
+  ).then((articles) => articles.flat());
+}
+
+const lang = getLangFromUrl(Astro.url);
+const { page } = Astro.props;
+---
+
+<BlogFeed lang={lang} page={page} />
