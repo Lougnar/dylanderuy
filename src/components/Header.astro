@@ -6,13 +6,15 @@ import { getLangFromUrl, useTranslations } from "../i18n/utils";
 import LanguagePicker from "./LanguagePicker.astro";
 import SearchBar from "./SearchBar.astro";
 import { getRelativeLocaleUrl } from "astro:i18n";
+import { DEFAULT_LANG } from "../i18n/conf";
 
 const lang = getLangFromUrl(Astro.url);
+const homeUrl = lang !== DEFAULT_LANG ? `/${lang}/` : `/`;
 const t = useTranslations(lang);
 ---
 
 <header>
-  <a class="header__logo" href="/">
+  <a class="header__logo" href={homeUrl}>
     <img height="66" src="/icons/logo.png" alt="Dylan toon photo" />
     <h2>
       {SITE_TITLE}
