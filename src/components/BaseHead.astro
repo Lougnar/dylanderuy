@@ -1,6 +1,9 @@
 ---
 // Import the global.css file here so that it is included on
 // all pages through the use of the <BaseHead /> component.
+import { SITE_TITLE } from "../consts";
+import { getLangFromUrl } from "../i18n/utils";
+import { DEFAULT_LANG } from "../i18n/conf";
 import "../styles/global.css";
 
 interface Props {
@@ -12,6 +15,7 @@ interface Props {
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
 const { title, description, image = "/blog-placeholder-1.jpg" } = Astro.props;
+const lang = getLangFromUrl(Astro.url);
 ---
 
 <!-- Global Metadata -->
@@ -36,6 +40,12 @@ const { title, description, image = "/blog-placeholder-1.jpg" } = Astro.props;
   crossorigin
 />
 
+<link
+  rel="alternate"
+  type="application/rss+xml"
+  title={SITE_TITLE}
+  href={`${Astro.site}${lang !== DEFAULT_LANG ? lang + "/" : ""}rss.xml`}
+/>
 <!-- Canonical URL -->
 <link rel="canonical" href={canonicalURL} />
 <link rel="sitemap" href="/sitemap-index.xml" />

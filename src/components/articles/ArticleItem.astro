@@ -96,7 +96,9 @@ const { article, lang } = Astro.props;
       <p class="article__date">
         <FormattedDate lang={lang} date={article.data.pubDate} />
       </p>
-      <p class="article__text">{article.body}</p>
+      <p class="article__text">
+        {article.data.description}
+      </p>
     </div>
   </a>
 </li>

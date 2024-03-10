@@ -21,10 +21,6 @@ const { Content } = await article.render();
 const lang = getLangFromUrl(Astro.url);
 ---
 
-<BlogPost
-  lang={lang}
-  {...article.data}
-  description={article.body.substring(0, 200)}
->
+<BlogPost lang={lang} {...article.data}>
   <Content />
 </BlogPost>

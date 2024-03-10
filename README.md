@@ -2,8 +2,6 @@
 
 - Improve RSS FEED
 - HEADER alternative translated pages
-- canonical url ?.
-
 - FIRST ARTICLE
 - View transition API ??
 - About page illustrations

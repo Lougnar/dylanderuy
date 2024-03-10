@@ -84,11 +84,12 @@ const { lang, title, pubDate, description, updatedDate, heroImage, author } =
           <h1>{title}</h1>
           <div class="date">
             <span>{author ? author : "Dylan Deruy"} |</span>
-            <FormattedDate date={pubDate} />
+            <FormattedDate lang={lang} date={pubDate} />
             {
               updatedDate && (
                 <div class="last-updated-on">
-                  Last updated on <FormattedDate date={updatedDate} />
+                  Last updated on{" "}
+                  <FormattedDate lang={lang} date={updatedDate} />
                 </div>
               )
             }
@@ -97,10 +98,10 @@ const { lang, title, pubDate, description, updatedDate, heroImage, author } =
           <hr />
         </div>
         {heroImage && <img class="hero-image" src={heroImage} alt="" />}
-
+        <p>{description}</p>
         <slot />
       </article>
-      <section class="giscus"></section>
+      <section id="comments" class="giscus"></section>
       <script is:inline>
         let giscusTheme = getGiscusTheme(getPreferedTheme());
         let giscusAttributes = {
