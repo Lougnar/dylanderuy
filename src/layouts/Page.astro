@@ -6,16 +6,16 @@ import Footer from "../components/Footer.astro";
 
 type Props = {
   lang: string;
-  noindex?: boolean;
+  noindex?: string;
 } & CollectionEntry<"articles">["data"];
 
-const { lang, title, description, noindex = false } = Astro.props;
+const { lang, title, description, noindex = "false" } = Astro.props;
 ---
 
 <html lang={lang}>
   <head>
     <BaseHead title={title} description={description} />
-    {noindex && <meta name="robots" content="noindex" />}
+    {noindex === "true" && <meta name="robots" content="noindex" />}
     <style>
       .page-layout {
         background-color: white;
@@ -26,14 +26,16 @@ const { lang, title, description, noindex = false } = Astro.props;
       }
 
       ::global(.dark-theme) {
-        background-color: var(--background);
+        .page-layout {
+          background: var(--background);
+        }
       }
     </style>
   </head>
 
   <body>
     <Header />
-    <main class="page-layout">
+    <main transition:name="main" class="page-layout">
       <slot />
     </main>
     <Footer />

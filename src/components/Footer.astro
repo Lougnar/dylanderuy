@@ -8,7 +8,7 @@ const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 ---
 
-<footer>
+<footer transition:persist>
   <span class="footer__copyright"
     >&copy; {today.getFullYear()} Dylan Deruy -- {t("footer.copyright")}
     <a

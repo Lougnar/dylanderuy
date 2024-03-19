@@ -5,7 +5,7 @@ import { SITE_TITLE } from "../consts";
 import { getLangFromUrl } from "../i18n/utils";
 import { DEFAULT_LANG } from "../i18n/conf";
 import "../styles/global.css";
-
+import { ViewTransitions } from "astro:transitions";
 interface Props {
   title: string;
   description: string;
@@ -48,6 +48,8 @@ const lang = getLangFromUrl(Astro.url);
 />
 <!-- Canonical URL -->
 <link rel="canonical" href={canonicalURL} />
+
+<!-- sitemap -->
 <link rel="sitemap" href="/sitemap-index.xml" />
 
 <!-- Primary Meta Tags -->
@@ -61,3 +63,4 @@ const lang = getLangFromUrl(Astro.url);
 <meta property="twitter:title" content={title} />
 <meta property="twitter:description" content={description} />
 <meta property="twitter:image" content={new URL(image, Astro.url)} />
+<ViewTransitions />

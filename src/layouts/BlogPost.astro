@@ -10,8 +10,16 @@ type Props = {
   description: string;
 } & CollectionEntry<"articles">["data"];
 
-const { lang, title, pubDate, description, updatedDate, heroImage, author } =
-  Astro.props;
+const {
+  id,
+  lang,
+  title,
+  pubDate,
+  description,
+  updatedDate,
+  heroImage,
+  author,
+} = Astro.props;
 ---
 
 <html lang={lang}>
@@ -78,7 +86,7 @@ const { lang, title, pubDate, description, updatedDate, heroImage, author } =
 
   <body>
     <Header />
-    <main>
+    <main transition:name="main">
       <article class="article">
         <div class="title">
           <h1>{title}</h1>
@@ -97,36 +105,50 @@ const { lang, title, pubDate, description, updatedDate, heroImage, author } =
 
           <hr />
         </div>
-        {heroImage && <img class="hero-image" src={heroImage} alt="" />}
+        {
+          heroImage && (
+            <img
+              transition:animate="initial"
+              transition:name={`article-${id}`}
+              class="hero-image"
+              src={heroImage}
+              alt=""
+            />
+          )
+        }
         <p>{description}</p>
         <slot />
-      </article>
-      <section id="comments" class="giscus"></section>
-      <script is:inline>
-        let giscusTheme = getGiscusTheme(getPreferedTheme());
-        let giscusAttributes = {
-          src: "https://giscus.app/client.js",
-          "data-repo": "Lougnar/dylanderuy",
-          "data-repo-id": "R_kgDOLX3-_w",
-          "data-category": "Blog posts comments",
-          "data-category-id": "DIC_kwDOLX3-_84Cd2DO",
-          "data-mapping": "url",
-          "data-strict": "0",
-          "data-reactions-enabled": "1",
-          "data-emit-metadata": "0",
-          "data-input-position": "bottom",
-          "data-theme": giscusTheme,
-          "data-lang": document.documentElement.lang,
-          "data-loading": "lazy",
-          crossorigin: "anonymous",
-          async: "",
-        };
 
-        let giscusScript = document.createElement("script");
-        Object.entries(giscusAttributes).forEach(([key, value]) =>
-          giscusScript.setAttribute(key, value)
-        );
-        document.body.appendChild(giscusScript);
+        <section id="comments" class="giscus"></section>
+      </article>
+
+      <script is:inline>
+        (() => {
+          let giscusTheme = getGiscusTheme(getPreferedTheme());
+          let giscusAttributes = {
+            src: "https://giscus.app/client.js",
+            "data-repo": "Lougnar/dylanderuy",
+            "data-repo-id": "R_kgDOLX3-_w",
+            "data-category": "Blog posts comments",
+            "data-category-id": "DIC_kwDOLX3-_84Cd2DO",
+            "data-mapping": "url",
+            "data-strict": "0",
+            "data-reactions-enabled": "1",
+            "data-emit-metadata": "0",
+            "data-input-position": "bottom",
+            "data-theme": giscusTheme,
+            "data-lang": document.documentElement.lang,
+            "data-loading": "lazy",
+            crossorigin: "anonymous",
+            async: "",
+          };
+
+          let giscusScript = document.createElement("script");
+          Object.entries(giscusAttributes).forEach(([key, value]) =>
+            giscusScript.setAttribute(key, value)
+          );
+          document.body.appendChild(giscusScript);
+        })();
       </script>
     </main>
     <Footer />

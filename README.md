@@ -1,9 +1,9 @@
 ## TODO
 
-- Improve RSS FEED
-- HEADER alternative translated pages
+- Fix scrollbar gutter + mobile menu position gap
+- rewrite isActive on header links to persis all nav
+- blog placeholder img
 - FIRST ARTICLE
-- View transition API ??
 - About page illustrations
 
 ## 🚀 Project Structure

@@ -23,7 +23,7 @@ const langFromUrl = getLangFromUrl(Astro.url);
   }
 </style>
 <div>
-  <ul class="language-picker__list">
+  <ul transition:persist="langage-picker" class="language-picker__list">
     {
       AVAILABLE_LANGUAGES.map((lang) => (
         <li>

@@ -1,4 +1,8 @@
-<button id="header__theme" class="header__theme">
+<button
+  transition:persist="theme-button"
+  id="header__theme"
+  class="header__theme"
+>
   <svg
     id="header__dark-mode"
     xmlns="http://www.w3.org/2000/svg"
@@ -78,15 +82,14 @@
     return theme ?? lightTheme;
   };
 
-  function setTheme(theme) {
+  function setTheme(theme, documentTarget = document) {
     theme = assertTheme(theme);
-
     if (theme === null) {
       return;
     }
 
-    const darkButton = document.getElementById("header__dark-mode");
-    const lightButton = document.getElementById("header__light-mode");
+    const darkButton = documentTarget.getElementById("header__dark-mode");
+    const lightButton = documentTarget.getElementById("header__light-mode");
 
     if (!(darkButton && lightButton)) {
       return;
@@ -95,17 +98,17 @@
     if (theme === darkTheme) {
       darkButton.style.display = "none";
       lightButton.style.display = "block";
-      document.body.classList.remove("light-theme");
-      document.body.classList.add("dark-theme");
+      documentTarget.documentElement.classList.remove("light-theme");
+      documentTarget.documentElement.classList.add("dark-theme");
     } else {
       darkButton.style.display = "block";
       lightButton.style.display = "none";
-      document.body.classList.add("light-theme");
-      document.body.classList.remove("dark-theme");
+      documentTarget.documentElement.classList.add("light-theme");
+      documentTarget.documentElement.classList.remove("dark-theme");
     }
 
     setGiscusTheme(theme);
-    localStorage.setItem("theme", theme);
+    localStorage.theme = theme;
   }
 
   const currentTheme = getPreferedTheme();
@@ -125,4 +128,10 @@
       setTheme(newTheme);
     });
   })();
+
+  // add theme class back to body when route change with transition API
+  document.addEventListener("astro:before-swap", (event) => {
+    const currentTheme = getPreferedTheme();
+    setTheme(currentTheme, event.newDocument);
+  });
 </script>

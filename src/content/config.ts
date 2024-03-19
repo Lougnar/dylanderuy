@@ -3,6 +3,7 @@ import { defineCollection, getCollection, z } from "astro:content";
 import { ContentType } from "../consts";
 
 const articleSchema = z.object({
+  id: z.string(),
   title: z.string(),
   description: z.string(),
   // Transform string to Date object
@@ -29,6 +30,7 @@ export async function getArticles(
     })
     .map((article) => ({
       ...article,
+      data: { ...article.data },
       slug: article.slug.replace(`${DEFAULT_LANG}/`, ""),
     }))
     .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());

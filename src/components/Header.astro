@@ -15,7 +15,7 @@ const t = useTranslations(lang);
 
 <header>
   <a class="header__logo" href={homeUrl}>
-    <img height="66" src="/icons/logo.png" alt="Dylan toon photo" />
+    <img height="66" width="54" src="/icons/logo.png" alt="Dylan toon photo" />
     <h2>
       {SITE_TITLE}
     </h2>
@@ -38,7 +38,7 @@ const t = useTranslations(lang);
   <img id="header__menu-icon" class="header__menu-icon" src="/icons/menu.svg" />
 </header>
 <script>
-  (() => {
+  function handleMobileMenu() {
     const ACTIVE_CLASS = "header__menu-icon-active";
     const NAV_OPEN_CLASS = "header__nav--open";
 
@@ -59,7 +59,13 @@ const t = useTranslations(lang);
       menu.classList.add(ACTIVE_CLASS);
       nav.classList.add(NAV_OPEN_CLASS);
     });
-  })();
+  }
+
+  handleMobileMenu();
+
+  document.addEventListener("astro:after-swap", () => {
+    handleMobileMenu();
+  });
 </script>
 <style>
   header {
@@ -158,8 +164,8 @@ const t = useTranslations(lang);
       flex-direction: column-reverse;
       gap: 16px;
       padding: 16px;
-      background-color: white;
       width: 100%;
+      background: var(--background-color);
       top: 72px;
       left: 0;
       right: 0;

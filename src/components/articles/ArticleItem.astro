@@ -90,13 +90,22 @@ const { article, lang } = Astro.props;
 </style>
 <li class="article__item">
   <a href={`/${article.slug}/`}>
-    <img height="100%" src={article.data.heroImage} alt="" />
+    <img
+      transition:animate="initial"
+      transition:name={`article-${article.data.id}`}
+      height="100%"
+      src={article.data.heroImage}
+      alt=""
+    />
     <div class="article__preview">
-      <h4 class="article__title">{article.data.title}</h4>
+      <h4 class="article__title">
+        {article.data.title}
+      </h4>
       <p class="article__date">
         <FormattedDate lang={lang} date={article.data.pubDate} />
       </p>
       <p class="article__text">
+        {`article-${article.data.id}`}
         {article.data.description}
       </p>
     </div>

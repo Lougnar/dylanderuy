@@ -13,6 +13,8 @@ const lang = getLangFromUrl(Astro.url);
 <html lang={lang}>
   <head>
     <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+    <meta name="robots" content="noindex" />
+
     <style>
       body {
         height: 100%;
@@ -24,6 +26,7 @@ const lang = getLangFromUrl(Astro.url);
         align-items: center;
         justify-content: center;
         flex-direction: column;
+        background-color: white;
         height: 100%;
         flex: 1;
 
@@ -32,12 +35,20 @@ const lang = getLangFromUrl(Astro.url);
           font-size: 70px;
         }
       }
+
+      ::global(.dark-theme) {
+        .page-404 {
+          background: var(--background);
+        }
+      }
     </style>
   </head>
   <body>
     <Header />
     <main class="page-404">
-      <h2>404</h2><h5>PAGE NOT FOUND</h5><a href="/">Back to home</a>
+      <h2>404</h2><h5>PAGE NOT FOUND</h5><p>
+        Page does not exist or is not translated yet
+      </p><a href="/">Back to home</a>
     </main>
     <Footer />
   </body>

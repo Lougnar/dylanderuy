@@ -28,7 +28,7 @@ const totalPage = Math.ceil(page.total / page.size);
   </head>
   <body>
     <Header />
-    <main>
+    <main transition:name="main">
       <ArticlesList lang={lang} articles={page?.data} />
       {
         page && (page.currentPage !== 1 || page.data.length >= page.size) && (
