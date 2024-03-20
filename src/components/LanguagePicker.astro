@@ -1,7 +1,6 @@
 ---
 import { AVAILABLE_LANGUAGES, DEFAULT_LANG } from "../i18n/conf";
 import { getLangFromUrl } from "../i18n/utils";
-
 const langFromUrl = getLangFromUrl(Astro.url);
 ---
 
@@ -23,7 +22,7 @@ const langFromUrl = getLangFromUrl(Astro.url);
   }
 </style>
 <div>
-  <ul transition:persist="langage-picker" class="language-picker__list">
+  <ul class="language-picker__list">
     {
       AVAILABLE_LANGUAGES.map((lang) => (
         <li>
@@ -56,7 +55,7 @@ const langFromUrl = getLangFromUrl(Astro.url);
         if (AVAILABLE_LANGUAGES.includes(path[0])) {
           path.shift();
         }
-
+        console.log("replace link with", `${link.href}${path.join("/")}`);
         location.replace(`${link.href}${path.join("/")}`);
       });
     }
