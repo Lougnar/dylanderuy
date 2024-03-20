@@ -14,16 +14,11 @@
 	--accent: #718d19;
 	--accent-dark: #87a330ff;
 	--cal-poly-green: #2a3c24ff;
+	--header-height: 72px;
  }
 
  .light-theme {
-	--background: 
-	radial-gradient(black 3px, transparent 4px),
-	radial-gradient(black 3px, transparent 4px),
-	linear-gradient(#fff 4px, transparent 0),
-	linear-gradient(45deg, transparent 74px, transparent 75px, #a4a4a4 75px, #a4a4a4 76px, transparent 77px, transparent 109px),
-	linear-gradient(-45deg, transparent 75px, transparent 76px, #a4a4a4 76px, #a4a4a4 77px, transparent 78px, transparent 109px),
-	#fff;
+	--background: rgb(238, 238, 238);
 	--background-color: white;
 	--color: black;
 	--layout-border: 1px solid #d0d7de;
@@ -46,22 +41,6 @@
 	--gray: 173, 186, 199;
 	--accent: #46954a;
 }
-	
-
-@font-face {
-	font-family: 'Atkinson';
-	src: url('/fonts/atkinson-regular.woff') format('woff');
-	font-weight: 400;
-	font-style: normal;
-	font-display: swap;
-}
-@font-face {
-	font-family: 'Atkinson';
-	src: url('/fonts/atkinson-bold.woff') format('woff');
-	font-weight: 700;
-	font-style: normal;
-	font-display: swap;
-}
 
 *, *::after, *::before {
 	box-sizing: border-box;
@@ -71,7 +50,7 @@ html,body {
 	height: 100%;
 }
 body {
-	font-family: 'Atkinson', sans-serif;
+	font-family: 'system-ui', sans-serif;
 	margin: 0;
 	padding: 0;
 	text-align: left;

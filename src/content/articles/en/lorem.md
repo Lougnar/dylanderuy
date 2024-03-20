@@ -4,7 +4,7 @@ title: "Free dolor sit amet, consectetur ad"
 description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 Sed non risus. Suspendisse lectus tortor, dignissim sit"
 pubDate: "Jan 02 2024"
-heroImage: "https://placehold.co/300x200"
+heroImage: "https://placehold.co/800x500"
 type: "article"
 ---
 

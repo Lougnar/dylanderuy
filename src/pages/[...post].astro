@@ -17,10 +17,10 @@ export async function getStaticPaths() {
 type Props = CollectionEntry<"articles">;
 
 const article = Astro.props;
-const { Content } = await article.render();
+const { Content, headings } = await article.render();
 const lang = getLangFromUrl(Astro.url);
 ---
 
-<BlogPost lang={lang} {...article.data}>
+<BlogPost lang={lang} {...article.data} {headings}>
   <Content />
 </BlogPost>

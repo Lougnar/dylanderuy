@@ -4,10 +4,16 @@ import BaseHead from "../components/BaseHead.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import FormattedDate from "../components/FormattedDate.astro";
-
+import TableOfContent from "../components/TableOfContent.astro";
+import { useTranslations } from "../i18n/utils";
 type Props = {
   lang: string;
   description: string;
+  headings: {
+    slug: string;
+    text: string;
+    depth: number;
+  }[];
 } & CollectionEntry<"articles">["data"];
 
 const {
@@ -19,18 +25,43 @@ const {
   updatedDate,
   heroImage,
   author,
+  headings,
 } = Astro.props;
+
+const t = useTranslations(lang);
+
+headings?.push({ depth: 2, slug: "comments", text: t("article.comments") });
 ---
 
 <html lang={lang}>
   <head>
     <BaseHead title={title} description={description} />
     <style>
+      main {
+        display: flex;
+        flex-direction: row;
+        max-width: none;
+        justify-content: space-between;
+
+        div,
+        aside {
+          flex: 1;
+        }
+
+        aside {
+          flex: 1;
+          width: 300px;
+          padding: var(--padding);
+
+          nav {
+            position: sticky;
+            top: calc(var(--header-height) + 32px);
+          }
+        }
+      }
       .article {
-        background-color: white;
+        max-width: 800px;
         padding: var(--padding);
-        border: var(--layout-border);
-        border-radius: var(--border-radius);
 
         h1 {
           color: var(--accent);
@@ -41,7 +72,7 @@ const {
       }
       .hero-image {
         width: 100%;
-        max-width: 700px;
+        max-width: 100%;
         border-radius: var(--border-radius);
         margin: auto;
         display: block;
@@ -52,7 +83,6 @@ const {
         border-radius: var(--border-radius);
       }
       .title {
-        padding: 1em 0;
         text-align: left;
       }
       .title h1 {
@@ -73,6 +103,16 @@ const {
         }
       }
 
+      @media (max-width: 900px) {
+        main {
+          justify-content: center;
+          & > div,
+          & > aside {
+            display: none;
+          }
+        }
+      }
+
       ::global(.dark-theme) {
         .article {
           background-color: var(--background);
@@ -83,7 +123,9 @@ const {
 
   <body>
     <Header />
-    <main transition:name="main">
+
+    <main>
+      <div></div>
       <article class="article">
         <div class="title">
           <h1>{title}</h1>
@@ -114,10 +156,14 @@ const {
           )
         }
         <p>{description}</p>
+
         <slot />
 
         <section id="comments" class="giscus"></section>
       </article>
+      <aside class="main__aside">
+        <TableOfContent {headings} />
+      </aside>
 
       <script is:inline>
         (() => {

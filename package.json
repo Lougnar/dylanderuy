@@ -16,5 +16,8 @@
     "astro": "4.4.4",
     "markdown-it": "^14.0.0",
     "sanitize-html": "^2.12.1"
+  },
+  "devDependencies": {
+    "@hbsnow/rehype-sectionize": "^1.0.7"
   }
 }

@@ -4,5 +4,7 @@
     "nav.learn": "Apprendre",
     "search.placeholder": "Recherche...",
     "footer.copyright": "Sauf mention contraire, le contenu de ce site est publié sous licence",
-    "footer.legalTerms":  "mentions légales"
+    "footer.legalTerms":  "mentions légales",
+    "article.comments": "Commentaires",
+    "article.tableOfContent": "Dans cet article"
 }
