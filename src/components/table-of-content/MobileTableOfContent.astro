@@ -1,0 +1,165 @@
+---
+// credit: version modified from starlight
+// https://github.com/withastro/starlight/blob/main/packages/starlight/components/MobileTableOfContents.astro
+
+import TableOfContentList from "./TableOfContentList.astro";
+import type { Heading } from "./Heading";
+import { getLangFromUrl, useTranslations } from "./../../i18n/utils";
+export type Props = {
+  headings: Heading[];
+};
+
+const { headings } = Astro.props;
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+{
+  headings && (
+    <mobile-starlight-toc data-min-h={2} data-max-h={4}>
+      <nav>
+        <details id="starlight__mobile-toc">
+          <summary>
+            <div class="toggle">
+              {t("article.tableOfContent")}
+              <svg
+                aria-hidden="true"
+                class="caret"
+                width="32"
+                height="32"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+              >
+                <path d="m14.83 11.29-4.24-4.24a1 1 0 1 0-1.42 1.41L12.71 12l-3.54 3.54a1 1 0 0 0 0 1.41 1 1 0 0 0 .71.29 1 1 0 0 0 .71-.29l4.24-4.24a1.002 1.002 0 0 0 0-1.42Z" />
+              </svg>
+            </div>
+            <span class="display-current" />
+          </summary>
+          <div class="dropdown">
+            <TableOfContentList {headings} depth={0} />
+          </div>
+        </details>
+      </nav>
+    </mobile-starlight-toc>
+  )
+}
+
+<style>
+  .mobile-table-of-content {
+    display: none;
+    position: fixed;
+    top: var(--header-height);
+    width: 100%;
+    background-color: var(--background);
+  }
+  nav {
+    inset-inline: 0;
+    background-color: var(--background);
+    width: 100%;
+  }
+
+  summary {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    padding: 16px;
+    width: fit-content;
+  }
+  summary::marker,
+  summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .toggle {
+    display: flex;
+    flex-shrink: 0;
+    gap: 1rem;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid var(--accent);
+    border-radius: 0.5rem;
+    padding-block: 0.5rem;
+    padding-inline-start: 0.75rem;
+    padding-inline-end: 0.5rem;
+    line-height: 1;
+    background-color: var(--background);
+    color: var(--color);
+    user-select: none;
+    cursor: pointer;
+  }
+
+  :global([dir="rtl"]) .caret {
+    transform: rotateZ(180deg);
+  }
+  details[open] .caret {
+    transform: rotateZ(90deg);
+  }
+
+  .display-current {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    color: var(--accent);
+  }
+
+  .dropdown {
+    --border-top: 1px;
+    margin-top: calc(-1 * var(--border-top));
+    max-height: calc(85vh - var(--header-height));
+    padding: 0 16px 16px 16px;
+    overflow-y: auto;
+    background-color: var(--background);
+    box-shadow: var(--box-shadow);
+    overscroll-behavior: contain;
+  }
+
+  @media (max-width: 900px) {
+    .mobile-table-of-content {
+      display: block;
+    }
+  }
+</style>
+
+<script>
+  import { StarlightTOC } from "./TableOfContent";
+
+  class MobileStarlightTOC extends StarlightTOC {
+    override set current(link: HTMLAnchorElement) {
+      super.current = link;
+      const display = this.querySelector(".display-current") as HTMLSpanElement;
+      if (display) display.textContent = link.textContent;
+    }
+
+    constructor() {
+      super();
+      this.classList.remove(...this.classList.values());
+      this.classList.add("mobile-table-of-content");
+      const details = this.querySelector("details");
+      if (!details) return;
+      const closeToC = () => {
+        details.open = false;
+      };
+      // Close the table of contents whenever a link is clicked.
+      details.querySelectorAll("a").forEach((a) => {
+        a.addEventListener("click", closeToC);
+      });
+      // Close the table of contents when a user clicks outside of it.
+      window.addEventListener("click", (e) => {
+        if (!details.contains(e.target as Node)) closeToC();
+      });
+      // Or when they press the escape key.
+      window.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && details.open) {
+          const hasFocus = details.contains(document.activeElement);
+          closeToC();
+          if (hasFocus) {
+            const summary = details.querySelector("summary");
+            if (summary) summary.focus();
+          }
+        }
+      });
+    }
+  }
+
+  customElements.define("mobile-starlight-toc", MobileStarlightTOC);
+</script>

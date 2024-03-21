@@ -1,0 +1,87 @@
+---
+// credit: version modified from starlight
+// https://github.com/withastro/starlight/blob/main/packages/starlight/components/TableOfContents/TableOfContentsList.astro
+
+import type { Heading } from "./Heading";
+
+interface Props {
+  headings: Heading[];
+  depth: number;
+}
+
+const { headings, depth = 0 } = Astro.props;
+---
+
+<ul>
+  {
+    headings.map((heading) => (
+      <li>
+        <a href={"#" + heading.slug}>
+          <span>{heading.text}</span>
+        </a>
+        {heading.subheadings && heading.subheadings.length > 0 && (
+          <Astro.self headings={heading.subheadings} depth={depth + 1} />
+        )}
+      </li>
+    ))
+  }
+</ul>
+
+<style define:vars={{ depth }}>
+  ul {
+    padding: 0;
+    list-style: none;
+    width: fit-content;
+    margin: 0;
+  }
+  a {
+    --pad-inline: 8px;
+    display: block;
+    border-radius: var(--border-radius);
+    padding: 4px 16px 4px calc(16px * var(--depth));
+    line-height: 1.25;
+    text-decoration: none;
+    color: #888c96;
+  }
+
+  a[aria-current="true"] {
+    color: var(--accent);
+  }
+
+  a:hover,
+  a[aria-current="true"]:hover {
+    color: var(--color);
+  }
+
+  @media (max-width: 900px) {
+    a {
+      --pad-inline: 1rem;
+      display: flex;
+      justify-content: space-between;
+      gap: var(--pad-inline);
+      border-radius: 0;
+      padding-block: 0.5rem;
+      text-decoration: none;
+    }
+    .isMobile:first-child > li:first-child > a {
+      border-top: 0;
+    }
+    a[aria-current="true"],
+    a[aria-current="true"]:hover,
+    a[aria-current="true"]:focus {
+      color: var(--color);
+      background-color: unset;
+    }
+    a[aria-current="true"]::after {
+      content: "";
+      width: 32px;
+      /* Check mark SVG icon */
+      -webkit-mask-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCAxNCAxNCc+PHBhdGggZD0nTTEwLjkxNCA0LjIwNmEuNTgzLjU4MyAwIDAgMC0uODI4IDBMNS43NCA4LjU1NyAzLjkxNCA2LjcyNmEuNTk2LjU5NiAwIDAgMC0uODI4Ljg1N2wyLjI0IDIuMjRhLjU4My41ODMgMCAwIDAgLjgyOCAwbDQuNzYtNC43NmEuNTgzLjU4MyAwIDAgMCAwLS44NTdaJy8+PC9zdmc+Cg==");
+      mask-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCAxNCAxNCc+PHBhdGggZD0nTTEwLjkxNCA0LjIwNmEuNTgzLjU4MyAwIDAgMC0uODI4IDBMNS43NCA4LjU1NyAzLjkxNCA2LjcyNmEuNTk2LjU5NiAwIDAgMC0uODI4Ljg1N2wyLjI0IDIuMjRhLjU4My41ODMgMCAwIDAgLjgyOCAwbDQuNzYtNC43NmEuNTgzLjU4MyAwIDAgMCAwLS44NTdaJy8+PC9zdmc+Cg==");
+      -webkit-mask-repeat: no-repeat;
+      mask-repeat: no-repeat;
+      flex-shrink: 0;
+      background-color: var(--color);
+    }
+  }
+</style>

@@ -1,7 +1,6 @@
 ## TODO
 
-- Fix scrollbar gutter + mobile menu position gap
-- rewrite isActive on header links to persis all nav
+- search system: https://lirantal.com/blog/2023-01-01_-how_to_add_client-side_search_to_your_astro_blog_static_website/
 - blog placeholder img
 - FIRST ARTICLE
 - About page illustrations

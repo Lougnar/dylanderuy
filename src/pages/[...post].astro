@@ -3,6 +3,7 @@ import { type CollectionEntry } from "astro:content";
 import BlogPost from "../layouts/BlogPost.astro";
 import { getArticles } from "../content/config";
 import { getLangFromUrl } from "../i18n/utils";
+import { buildHierarchy } from "./../components/table-of-content/Heading";
 
 export async function getStaticPaths() {
   const articles = await getArticles();
@@ -17,10 +18,15 @@ export async function getStaticPaths() {
 type Props = CollectionEntry<"articles">;
 
 const article = Astro.props;
-const { Content, headings } = await article.render();
+const { Content, headings, remarkPluginFrontmatter } = await article.render();
 const lang = getLangFromUrl(Astro.url);
 ---
 
-<BlogPost lang={lang} {...article.data} {headings}>
+<BlogPost
+  lang={lang}
+  {...article.data}
+  headings={buildHierarchy(headings)}
+  readingTime={remarkPluginFrontmatter.minutesRead}
+>
   <Content />
 </BlogPost>

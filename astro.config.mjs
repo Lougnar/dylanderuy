@@ -3,6 +3,7 @@ import { AVAILABLE_LANGUAGES, DEFAULT_LANG } from "./src/i18n/conf";
 import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
 import sectionize from "@hbsnow/rehype-sectionize";
+import { remarkReadingTime } from "./src/reading-time.mjs";
 
 // https://astro.build/config
 export default defineConfig({
@@ -22,6 +23,7 @@ export default defineConfig({
   ],
   markdown: {
     rehypePlugins: [sectionize],
+    remarkPlugins: [remarkReadingTime],
   },
   i18n: {
     defaultLocale: DEFAULT_LANG,

@@ -1,0 +1,27 @@
+---
+// credit: version modified from starlight
+// https://github.com/withastro/starlight/blob/main/packages/starlight/components/TableOfContents.astro
+import DesktopTableOfContent from "./DesktopTableOfContent.astro";
+import type { Heading } from "./Heading.ts";
+import { getLangFromUrl, useTranslations } from "../../i18n/utils";
+import MobileTableOfContent from "./MobileTableOfContent.astro";
+
+export type Props = {
+  headings: Heading[];
+};
+
+const { headings } = Astro.props;
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+{
+  headings.length && (
+    <>
+      <DesktopTableOfContent {headings} />
+      <MobileTableOfContent {headings} />
+    </>
+  )
+}
+
+<script src="./TableOfContent"></script>

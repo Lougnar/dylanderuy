@@ -1,0 +1,38 @@
+---
+// credit: version modified from starlight
+// https://github.com/withastro/starlight/blob/main/packages/starlight/components/TableOfContents.astro
+import TableOfContentsList from "./TableOfContentList.astro";
+import type { Heading } from "./Heading.ts";
+import { getLangFromUrl, useTranslations } from "../../i18n/utils";
+
+export type Props = {
+  headings: Heading[];
+};
+
+const { headings } = Astro.props;
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+{
+  headings.length && (
+    <starlight-toc data-min-h="2" data-max-h="4">
+      <nav>
+        <h5>{t("article.tableOfContent")}</h5>
+        <TableOfContentsList headings={headings} depth={0} />
+      </nav>
+    </starlight-toc>
+  )
+}
+
+<style>
+  nav {
+    white-space: no-wrap;
+  }
+  @media (max-width: 900px) {
+    .desktop-table-of-content {
+      display: none;
+    }
+  }
+</style>
+<script src="./TableOfContent"></script>

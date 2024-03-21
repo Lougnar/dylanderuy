@@ -4,11 +4,12 @@ import BaseHead from "../components/BaseHead.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import FormattedDate from "../components/FormattedDate.astro";
-import TableOfContent from "../components/TableOfContent.astro";
+import TableOfContent from "../components/table-of-content/TableOfContent.astro";
 import { useTranslations } from "../i18n/utils";
 type Props = {
   lang: string;
   description: string;
+  readingTime: any;
   headings: {
     slug: string;
     text: string;
@@ -26,6 +27,7 @@ const {
   heroImage,
   author,
   headings,
+  readingTime,
 } = Astro.props;
 
 const t = useTranslations(lang);
@@ -65,6 +67,10 @@ headings?.push({ depth: 2, slug: "comments", text: t("article.comments") });
 
         h1 {
           color: var(--accent);
+        }
+
+        #comments {
+          visibility: hidden;
         }
       }
       .giscus {
@@ -106,9 +112,11 @@ headings?.push({ depth: 2, slug: "comments", text: t("article.comments") });
       @media (max-width: 900px) {
         main {
           justify-content: center;
-          & > div,
-          & > aside {
-            display: none;
+          flex-direction: column-reverse;
+
+          aside {
+            width: 100%;
+            padding: 0;
           }
         }
       }
@@ -159,7 +167,8 @@ headings?.push({ depth: 2, slug: "comments", text: t("article.comments") });
 
         <slot />
 
-        <section id="comments" class="giscus"></section>
+        <h4 id="comments">Comments</h4>
+        <section class="giscus"></section>
       </article>
       <aside class="main__aside">
         <TableOfContent {headings} />
