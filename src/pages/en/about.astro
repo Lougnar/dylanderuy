@@ -23,6 +23,11 @@ import Layout from "./../../layouts/BlogPost.astro";
   }
 </style>
 <Layout
+  headings={[]}
+  readingTime={0}
+  lang="en"
+  type="custom"
+  id="about-en"
   title="About Me"
   description="Dylan Deruy, Software developper"
   pubDate={new Date("January 02 2024")}
@@ -33,7 +38,7 @@ import Layout from "./../../layouts/BlogPost.astro";
     passions of the moment. Web, cloud, embedded development, electronics...
   </p>
 
-  <h2>My journey</h2>
+  <h2 id="my-journey">My journey</h2>
 
   <p>
     Passionate about countless fields, but especially IT. I have started very
@@ -47,7 +52,7 @@ import Layout from "./../../layouts/BlogPost.astro";
   </p>
   <p>
     Today after passing a master in France, i'm specialized in web & cloud
-    development. I got my hands on many javascript tools & framworks according
+    development. I got my hands on many javascript tools & frameworks according
     to project needs. (Angular, capacitor, Ionic, NodeJs, WebGL - Pixijs,
     Socket.io, NestJs etc.).
   </p>
@@ -57,7 +62,7 @@ import Layout from "./../../layouts/BlogPost.astro";
   </p>
 
   <section class="about__cv">
-    <h2>My professionnal experiences</h2>
+    <h2 id="experiences">My professionnal experiences</h2>
     <ul class="about__experiences">
       <li>
         <h4>Witekio - Software Engineer (Pole cloud) [ 12/01/2021 - Today ]</h4>

@@ -5,9 +5,6 @@
  */
 
  :root {
-	--gray-light: 229, 233, 240;
-	--gray-dark: 34, 41, 57;
-	--gray-gradient: rgba(var(--gray-light), 50%), #fff;
 	--border-radius: 4px;
 	--padding: 16px;
 	--pakistan-green: #243010ff;
@@ -15,9 +12,13 @@
 	--accent-dark: #87a330ff;
 	--cal-poly-green: #2a3c24ff;
 	--header-height: 72px;
+	--table-of-content-height: 60px;
  }
 
  .light-theme {
+	--gray-light:#24292e;
+	--gray-dark: 34, 41, 57;
+	--gray-gradient: var(--gray-light), #fff;
 	--background: rgb(238, 238, 238);
 	--background-color: white;
 	--color: black;
@@ -31,6 +32,9 @@
 
 
 .dark-theme {
+	--gray-light:#005d0f;
+	--gray-dark: 34, 41, 57;
+	--gray-gradient: var(--gray-light), #fff;
 	--background: #22272e;
 	--background-color: #22272e;
 	--color: white;
@@ -67,7 +71,7 @@ body {
 main {
 	max-width: 960px;
 	padding: var(--padding);
-	padding-top: 88px	;
+	padding-top: calc(var(--header-height) + 16px); 
 	margin: auto;
 }
 
@@ -125,7 +129,8 @@ img {
 }
 code {
 	padding: 2px 5px;
-	background-color: rgb(var(--gray-light));
+	background-color: var(--gray-light);
+	color: white;
 	border-radius: var(--border-radius);
 }
 pre {
@@ -143,7 +148,7 @@ blockquote {
 }
 hr {
 	border: none;
-	border-top: 1px solid rgb(var(--gray-light));
+	border-top: 1px solid var(--gray-light);
 }
 
 @media (max-width: 600px) {

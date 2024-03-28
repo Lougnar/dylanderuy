@@ -49,10 +49,12 @@ const t = useTranslations(lang);
     display: none;
     position: fixed;
     top: var(--header-height);
+    left: 0;
     width: 100%;
     background-color: var(--background);
   }
   nav {
+    display: none;
     inset-inline: 0;
     background-color: var(--background);
     width: 100%;
@@ -60,9 +62,12 @@ const t = useTranslations(lang);
 
   summary {
     display: flex;
+    max-width: 100%;
+    overflow: hidden;
     gap: 0.5rem;
+    font-size: 1rem;
     align-items: center;
-    padding: 16px;
+    padding: 8px 16px;
     width: fit-content;
   }
   summary::marker,
@@ -77,11 +82,12 @@ const t = useTranslations(lang);
     align-items: center;
     justify-content: space-between;
     border: 1px solid var(--accent);
-    border-radius: 0.5rem;
-    padding-block: 0.5rem;
-    padding-inline-start: 0.75rem;
-    padding-inline-end: 0.5rem;
+    border-radius: 0.4rem;
+    padding-block: 0.4rem;
+    padding-inline-start: 0.4rem;
+    padding-inline-end: 0.4rem;
     line-height: 1;
+    white-space: nowrap;
     background-color: var(--background);
     color: var(--color);
     user-select: none;
@@ -100,22 +106,28 @@ const t = useTranslations(lang);
     text-overflow: ellipsis;
     overflow: hidden;
     color: var(--accent);
+    padding: 8px;
   }
 
   .dropdown {
     --border-top: 1px;
+    max-width: 100%;
+    overflow-x: hidden;
     margin-top: calc(-1 * var(--border-top));
     max-height: calc(85vh - var(--header-height));
-    padding: 0 16px 16px 16px;
+    padding: 0 16px 16px 28px;
     overflow-y: auto;
     background-color: var(--background);
-    box-shadow: var(--box-shadow);
     overscroll-behavior: contain;
+    border-bottom: var(--layout-border);
   }
 
   @media (max-width: 900px) {
     .mobile-table-of-content {
       display: block;
+      nav {
+        display: block;
+      }
     }
   }
 </style>

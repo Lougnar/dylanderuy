@@ -34,14 +34,28 @@ const t = useTranslations(lang);
       <LanguagePicker />
     </div>
   </nav>
-  <img id="header__menu-icon" class="header__menu-icon" src="/icons/menu.svg" />
+  <svg
+    transition:persist="menu-icon"
+    id="header__menu-icon"
+    class="header__menu-icon"
+    xmlns="http://www.w3.org/2000/svg"
+    height="48"
+    viewBox="0 -960 960 960"
+    width="48"
+    ><path
+      d="M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z"
+    ></path></svg
+  >
 </header>
 <script>
-  function setActiveLink() {
-    const links = document.querySelectorAll<HTMLLinkElement>("a.header-link");
+  const ACTIVE_CLASS = "header__menu-icon-active";
+  const NAV_OPEN_CLASS = "header__nav--open";
+  const menu = document.getElementById("header__menu-icon");
+  const nav = document.getElementById("header__nav");
+  const links = document.querySelectorAll<HTMLLinkElement>("a.header-link");
 
+  function setActiveLink() {
     links.forEach((link) => {
-      console.log(link.href, location.href);
       const isActive =
         link.href === location.href ||
         link.href === location.href.replace(/\/$/, "");
@@ -54,26 +68,42 @@ const t = useTranslations(lang);
     });
   }
 
-  function handleMobileMenu() {
-    const ACTIVE_CLASS = "header__menu-icon-active";
-    const NAV_OPEN_CLASS = "header__nav--open";
-
-    const menu = document.getElementById("header__menu-icon");
-    const nav = document.getElementById("header__nav");
-
+  function closeMenu() {
     if (!(menu && nav)) {
       return;
     }
 
-    menu.addEventListener("click", () => {
-      if (menu.classList.contains(ACTIVE_CLASS)) {
-        menu.classList.remove(ACTIVE_CLASS);
-        nav.classList.remove(NAV_OPEN_CLASS);
-        return;
-      }
+    menu.classList.remove(ACTIVE_CLASS);
+    nav.classList.remove(NAV_OPEN_CLASS);
+  }
 
-      menu.classList.add(ACTIVE_CLASS);
-      nav.classList.add(NAV_OPEN_CLASS);
+  function toggleMenu() {
+    if (!(menu && nav)) {
+      return;
+    }
+
+    if (menu.classList.contains(ACTIVE_CLASS)) {
+      closeMenu();
+      return;
+    }
+
+    menu.classList.add(ACTIVE_CLASS);
+    nav.classList.add(NAV_OPEN_CLASS);
+  }
+
+  function handleMobileMenu() {
+    if (!(menu && nav)) {
+      return;
+    }
+
+    links.forEach((link) => {
+      link.addEventListener("click", () => {
+        closeMenu();
+      });
+    });
+
+    menu.addEventListener("click", () => {
+      toggleMenu();
     });
   }
 
@@ -84,7 +114,6 @@ const t = useTranslations(lang);
 
   document.addEventListener("astro:after-swap", () => {
     setActiveLink();
-    handleMobileMenu();
   });
 </script>
 <style>
@@ -134,7 +163,8 @@ const t = useTranslations(lang);
 
   .header__menu-icon {
     display: none;
-    height: 80%;
+    height: 48px;
+    fill: var(--color);
     padding: 4px;
     margin-left: auto;
     cursor: pointer;

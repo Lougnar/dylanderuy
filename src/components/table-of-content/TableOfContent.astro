@@ -16,7 +16,7 @@ const t = useTranslations(lang);
 ---
 
 {
-  headings.length && (
+  headings?.length && (
     <>
       <DesktopTableOfContent {headings} />
       <MobileTableOfContent {headings} />

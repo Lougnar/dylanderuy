@@ -50,9 +50,19 @@ headings?.push({ depth: 2, slug: "comments", text: t("article.comments") });
           flex: 1;
         }
 
+        .heading {
+          h0,
+          h1,
+          h2,
+          h3,
+          h4,
+          h5 {
+            scroll-margin-top: calc(var(--header-height) + 15px);
+          }
+        }
+
         aside {
-          flex: 1;
-          width: 300px;
+          min-width: 250px;
           padding: var(--padding);
 
           nav {
@@ -61,6 +71,7 @@ headings?.push({ depth: 2, slug: "comments", text: t("article.comments") });
           }
         }
       }
+
       .article {
         max-width: 800px;
         padding: var(--padding);
@@ -90,9 +101,10 @@ headings?.push({ depth: 2, slug: "comments", text: t("article.comments") });
       }
       .title {
         text-align: left;
-      }
-      .title h1 {
-        margin: 0 0 16px 0;
+
+        h1 {
+          margin: 0 0 16px 0;
+        }
       }
       .date {
         margin-bottom: 0.5em;
@@ -105,7 +117,9 @@ headings?.push({ depth: 2, slug: "comments", text: t("article.comments") });
       @media (max-width: 600px) {
         main {
           padding: 0;
-          padding-top: 88px;
+          padding-top: calc(
+            var(--header-height) + var(--table-of-content-height)
+          );
         }
       }
 
@@ -117,6 +131,18 @@ headings?.push({ depth: 2, slug: "comments", text: t("article.comments") });
           aside {
             width: 100%;
             padding: 0;
+          }
+          .heading {
+            h1,
+            h2,
+            h3,
+            h4,
+            h5,
+            h6 {
+              scroll-margin-top: calc(
+                var(--header-height) + var(--table-of-content-height) + 16px
+              );
+            }
           }
         }
       }

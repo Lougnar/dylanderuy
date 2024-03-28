@@ -74,7 +74,6 @@ export class StarlightTOC extends HTMLElement {
 
     // Observe elements with an `id` (most likely headings) and their siblings.
     const toObserve = document.querySelectorAll<HTMLElement>(".article [id]");
-    toObserve.forEach((el) => (el.style.scrollMarginTop = "88px"));
     let observer: IntersectionObserver | undefined;
     const observe = () => {
       if (observer) observer.disconnect();
